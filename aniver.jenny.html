@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Para Jennyfer 💖</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial;
+  background: black;
+  color: white;
+}
+
+/* FUNDO */
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, #ff00cc, #3333ff, black);
+  animation: fundo 10s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes fundo {
+  from {transform: translate(-20%, -20%) scale(1);}
+  to {transform: translate(0,0) scale(1.2);}
+}
+
+/* TELAS */
+.tela {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: 1s;
+}
+
+.ativa {
+  display: flex;
+  opacity: 1;
+}
+
+/* NOME */
+.nome {
+  font-size: 4em;
+  text-shadow: 0 0 20px pink, 0 0 40px hotpink;
+  animation: brilhoNome 1.5s infinite alternate;
+}
+
+@keyframes brilhoNome {
+  from {transform: scale(1);}
+  to {transform: scale(1.05);}
+}
+
+/* BOTÃO */
+button {
+  padding: 12px 25px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* CARTA */
+.envelope {
+  width: 200px;
+  height: 130px;
+  background: #f5e6cc;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 30px pink;
+  animation: pulsar 2s infinite;
+}
+
+@keyframes pulsar {
+  50% {transform: scale(1.05);}
+}
+
+/* COROA */
+.coroa {
+  font-size: 100px;
+  animation: brilho 1s infinite alternate;
+}
+
+@keyframes brilho {
+  from {filter: drop-shadow(0 0 10px gold);}
+  to {filter: drop-shadow(0 0 30px yellow);}
+}
+
+/* BONECO */
+.boneco {
+  font-size: 70px;
+  animation: andarBoneco 1s infinite alternate;
+}
+
+@keyframes andarBoneco {
+  from {transform: translateX(-20px);}
+  to {transform: translateX(20px);}
+}
+
+/* 🐱 GATOS MELHORADOS */
+.gato {
+  position: absolute;
+  pointer-events: none;
+  animation: andar linear forwards;
+}
+
+@keyframes andar {
+  0% {
+    transform: translateX(-10vw) translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(50vw) translateY(-10px) rotate(5deg);
+  }
+  100% {
+    transform: translateX(110vw) translateY(0) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+/* CONFETE */
+.confete {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  animation: cair 4s linear;
+}
+
+@keyframes cair {
+  to {transform: translateY(100vh) rotate(360deg);}
+}
+
+/* TEXTO */
+#msg {
+  max-width: 600px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="musica" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<!-- TELA 1 -->
+<div class="tela ativa" id="t1">
+  <div class="envelope" onclick="next(2)"></div>
+  <p>Jennyfer... tem algo pra você 💌</p>
+</div>
+
+<!-- TELA 2 -->
+<div class="tela" id="t2">
+  <h1 class="nome">Jennyfer ✨</h1>
+  <p>Hoje é um dia especial...</p>
+  <button onclick="next(3)">Continuar</button>
+</div>
+
+<!-- TELA 3 -->
+<div class="tela" id="t3">
+  <div class="coroa">👑</div>
+  <p>É o dia de uma rainha 👑</p>
+  <button onclick="next(4)">Continuar</button>
+</div>
+
+<!-- TELA 4 -->
+<div class="tela" id="t4">
+  <div class="boneco">🧍‍♂️🎁</div>
+  <p>Eu trouxe um presente 😎</p>
+  <button onclick="next(5)">Abrir</button>
+</div>
+
+<!-- TELA 5 -->
+<div class="tela" id="t5">
+  <p>Prepare-se... 🐱💖</p>
+  <button onclick="gatos()">Continuar</button>
+</div>
+
+<!-- FINAL -->
+<div class="tela" id="t6">
+  <h1 class="nome">Feliz Aniversário Jennyfer 🎉</h1>
+  <p id="msg"></p>
+</div>
+
+<script>
+
+function next(id){
+  document.querySelectorAll(".tela").forEach(t => t.classList.remove("ativa"));
+  document.getElementById("t"+id).classList.add("ativa");
+
+  document.getElementById("musica").play();
+
+  if(id == 6){
+    escrever();
+    confete();
+  }
+}
+
+/* 🐱 GATOS ABSURDOS */
+function gatos(){
+  next(6);
+
+  setInterval(() => {
+    let g = document.createElement("div");
+    g.className = "gato";
+    g.innerHTML = "🐱";
+
+    g.style.top = Math.random() * 80 + "vh";
+
+    let size = Math.random() * 25 + 20;
+    g.style.fontSize = size + "px";
+
+    let duration = Math.random() * 4 + 4;
+    g.style.animationDuration = duration + "s";
+
+    document.body.appendChild(g);
+
+    setTimeout(() => {
+      g.remove();
+    }, duration * 1000);
+
+  }, 400);
+}
+
+/* TEXTO */
+let texto = "Jennyfer, hoje é o seu dia... Você é uma pessoa incrível e merece tudo de melhor nesse mundo. Que sua vida seja cheia de felicidade, conquistas e momentos inesquecíveis 💖";
+
+let i = 0;
+
+function escrever(){
+  document.getElementById("msg").innerHTML = "";
+  i = 0;
+
+  function digitar(){
+    if(i < texto.length){
+      document.getElementById("msg").innerHTML += texto.charAt(i);
+      i++;
+      setTimeout(digitar, 40);
+    }
+  }
+
+  digitar();
+}
+
+/* CONFETE */
+function confete(){
+  for(let i=0;i<150;i++){
+    let c = document.createElement("div");
+    c.className = "confete";
+    c.style.left = Math.random()*100+"vw";
+    c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(c);
+  }
+}
+
+</script>
+
+</body>
+</html>
